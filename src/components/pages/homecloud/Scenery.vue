@@ -1,12 +1,12 @@
 <template>
   <div class="index">
-    首页....
+  	  景区服务商....
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Index',
+  name: 'Scenery',
   data () {
     return {
 		

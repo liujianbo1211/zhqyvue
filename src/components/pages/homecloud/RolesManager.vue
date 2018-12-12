@@ -1,12 +1,12 @@
 <template>
   <div class="index">
-    首页....
+  	  角色管理....
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Index',
+  name: 'UserManager',
   data () {
     return {
 		

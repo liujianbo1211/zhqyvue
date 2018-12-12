@@ -1,12 +1,12 @@
 <template>
   <div class="index">
-    首页....
+  	  账号管理管理....
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Index',
+  name: 'RolesManager',
   data () {
     return {
 		
@@ -15,7 +15,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less">
 
 </style>

@@ -1,12 +1,12 @@
 <template>
   <div class="index">
-    首页....
+  	  设备租赁统计....
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Index',
+  name: 'TerminalLeaseCount',
   data () {
     return {
 		

@@ -41,7 +41,9 @@
                 <el-button style="width: 100%;height: 60px;border: none;" :label="true" v-show="isCollapse" @click="isCollapse = !isCollapse" class="menu-expan-button">
                     <i class="icon iconfont icon-shouye"></i>
                 </el-button>
-                <el-menu default-active="1-4-1" style="width: 100%;" class="el-menu-vertical-demo"  :collapse="isCollapse">
+                <el-menu
+                	unique-opened
+                	 router default-active="1-showIndex" style="width: 100%;" class="el-menu-vertical-demo"  :collapse="isCollapse">
 									  <el-submenu index="1">
 								    <template slot="title" index="/data">
 								      <i class="icon iconfont icon-shouye"></i>
@@ -49,7 +51,7 @@
 								    </template>
 								  
 								    <el-menu-item-group>
-								      <el-menu-item style="padding-left: 100px;" index="/showInde">首页</el-menu-item>
+								      <el-menu-item style="padding-left: 100px;" index="/showIndex">首页</el-menu-item>
 								    </el-menu-item-group>
 								  </el-submenu>
 								  
@@ -60,7 +62,7 @@
 								    </template>
 								  
 								    <el-menu-item-group>
-								      <el-menu-item style="padding-left: 100px;" index="/showInde">景区服务商</el-menu-item>
+								      <el-menu-item style="padding-left: 100px;" index="/scenery">景区服务商</el-menu-item>
 								    </el-menu-item-group>
 								  </el-submenu>
 								  
@@ -72,7 +74,7 @@
 								    </template>
 								  
 								    <el-menu-item-group>
-								      <el-menu-item style="padding-left: 100px;" index="1-1">设备信息</el-menu-item>
+								      <el-menu-item style="padding-left: 100px;" index="/terminal_message">设备信息</el-menu-item>
 	
 								    </el-menu-item-group>
 								  </el-submenu>
@@ -84,11 +86,11 @@
 								    </template>
 								  
 								    <el-menu-item-group>
-								      <el-menu-item style="padding-left: 100px;" index="1-1">发射源统计</el-menu-item>
-								      <el-menu-item style="padding-left: 100px;" index="1-2">机器码统计</el-menu-item>
-								      <el-menu-item style="padding-left: 100px;" index="1-1">发射源访问日志</el-menu-item>
-								      <el-menu-item style="padding-left: 100px;" index="1-2">发射源</el-menu-item>
-								      <el-menu-item style="padding-left: 100px;" index="1-1">位置版</el-menu-item>
+								      <el-menu-item style="padding-left: 100px;" index="/emissionsource_count">发射源统计</el-menu-item>
+								      <el-menu-item style="padding-left: 100px;" index="/machinecode_count">机器码统计</el-menu-item>
+								      <el-menu-item style="padding-left: 100px;" index="/emissionsource_log">发射源访问日志</el-menu-item>
+								      <el-menu-item style="padding-left: 100px;" index="/emissionsource">发射源</el-menu-item>
+								      <el-menu-item style="padding-left: 100px;" index="/positionversion">位置版</el-menu-item>
 								    </el-menu-item-group>
 								  </el-submenu>
 								  
@@ -99,10 +101,10 @@
 								    </template>
 								  
 								    <el-menu-item-group>
-								      <el-menu-item style="padding-left: 100px;" index="4-1">设备租赁次数统计表</el-menu-item>
-								      <el-menu-item style="padding-left: 100px;" index="4-2">SOS统计</el-menu-item>
-								      <el-menu-item style="padding-left: 100px;" index="4-1">客流统计</el-menu-item>
-								      <el-menu-item style="padding-left: 100px;" index="4-2">电子围栏统计</el-menu-item>
+								      <el-menu-item style="padding-left: 100px;" index="/terminal_lease">设备租赁次数统计表</el-menu-item>
+								      <el-menu-item style="padding-left: 100px;" index="/sos_count">SOS统计</el-menu-item>
+								      <el-menu-item style="padding-left: 100px;" index="/passengerflow_count">客流统计</el-menu-item>
+								      <el-menu-item style="padding-left: 100px;" index="/fence_count">电子围栏统计</el-menu-item>
 								    </el-menu-item-group>
 								  </el-submenu>
 								  
@@ -113,8 +115,8 @@
 								    </template>
 								  
 								    <el-menu-item-group>
-								      <el-menu-item style="padding-left: 100px;" index="6-1">升级情况</el-menu-item>
-								      <el-menu-item style="padding-left: 100px;" index="6-2">升级日志</el-menu-item>
+								      <el-menu-item style="padding-left: 100px;" index="/upgrade_state">升级情况</el-menu-item>
+								      <el-menu-item style="padding-left: 100px;" index="/upgrade_log">升级日志</el-menu-item>
 								    </el-menu-item-group>
 								  </el-submenu>
 								  
@@ -126,8 +128,8 @@
 								    </template>
 								  
 								    <el-menu-item-group>
-								      <el-menu-item style="padding-left: 100px;" index="7-1">账号管理</el-menu-item>
-								      <el-menu-item style="padding-left: 100px;" index="7-2">角色分配</el-menu-item>
+								      <el-menu-item style="padding-left: 100px;" index="/user_manager">账号管理</el-menu-item>
+								      <el-menu-item style="padding-left: 100px;" index="/roles_manager">角色分配</el-menu-item>
 								    </el-menu-item-group>
 								  </el-submenu>
 									</el-menu>
@@ -148,7 +150,7 @@
                     </el-col>
                 </div>
             </section>-->
-            <div style="border: 1px solid #eee;width: 100%;height: 100%;">
+            <div class="right-content" >
             		<router-view></router-view>
             </div>
             <div class="menu-line-right"></div>

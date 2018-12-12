@@ -1,12 +1,12 @@
 <template>
-  <div class="index">
-    首页....
+  <div class="index" >
+  	  机器码统计....
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Index',
+  name: 'CodeMachineCount',
   data () {
     return {
 		
@@ -15,7 +15,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less">
 
 </style>

@@ -1,12 +1,12 @@
 <template>
-  <div class="index">
-    首页....
+  <div class="index" >
+  	  发射源统计....
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Index',
+  name: 'EmissionSourceCount',
   data () {
     return {
 		
@@ -15,7 +15,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less">
 
 </style>
