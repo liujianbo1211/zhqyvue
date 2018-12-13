@@ -18,10 +18,10 @@
 }
 .yellow-line{
     height: 38px;
-    background: -webkit-linear-gradient(#FCECDD, #F7F7F7); /* Safari 5.1 - 6.0 */
-    background: -o-linear-gradient(#FCECDD, #F7F7F7); /* Opera 11.1 - 12.0 */
-    background: -moz-linear-gradient(#FCECDD, #F7F7F7); /* Firefox 3.6 - 15 */
-    background: linear-gradient(#FCECDD, #F7F7F7); /* 标准的语法（必须放在最后） */
+    background: -webkit-linear-gradient(#FBE2C4, #F7F7F7); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#FBE2C4, #F7F7F7); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#FBE2C4,#F7F7F7); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#FBE2C4, #F7F7F7); /* 标准的语法（必须放在最后） */
 }
 
 .main {
@@ -79,10 +79,10 @@
       height: 10000px;
       margin-top: -20px;
       z-index: 1000;
-      background: -webkit-linear-gradient(left, #FCECDD , #F7F7F7); /* Safari 5.1 - 6.0 */
-      background: -o-linear-gradient(right, #FCECDD, #F7F7F7); /* Opera 11.1 - 12.0 */
-      background: -moz-linear-gradient(right, #FCECDD, #F7F7F7); /* Firefox 3.6 - 15 */
-      background: linear-gradient(to right, #FCECDD , #F7F7F7); /* 标准的语法（必须放在最后） */
+      background: -webkit-linear-gradient(left, #FBE2C4, #F7F7F7); /* Safari 5.1 - 6.0 */
+      background: -o-linear-gradient(right, #FBE2C4, #F7F7F7); /* Opera 11.1 - 12.0 */
+      background: -moz-linear-gradient(right, #FBE2C4, #F7F7F7); /* Firefox 3.6 - 15 */
+      background: linear-gradient(to right, #FBE2C4, #F7F7F7); /* 标准的语法（必须放在最后） */
     }
  .menu-line-right{
 
@@ -91,10 +91,10 @@
       height: 10000px;
       margin-top: -20px;
       z-index: 1000;
-      background: -webkit-linear-gradient(left, #F7F7F7 , #FCECDD); /* Safari 5.1 - 6.0 */
-      background: -o-linear-gradient(right, #F7F7F7 , #FCECDD); /* Opera 11.1 - 12.0 */
-      background: -moz-linear-gradient(right, #F7F7F7 , #FCECDD); /* Firefox 3.6 - 15 */
-      background: linear-gradient(to right, #F7F7F7 , #FCECDD); /* 标准的语法（必须放在最后） */
+      background: -webkit-linear-gradient(left, #F7F7F7 , #FBE2C4); /* Safari 5.1 - 6.0 */
+      background: -o-linear-gradient(right, #F7F7F7 , #FBE2C4); /* Opera 11.1 - 12.0 */
+      background: -moz-linear-gradient(right, #F7F7F7 , #FBE2C4); /* Firefox 3.6 - 15 */
+      background: linear-gradient(to right, #F7F7F7 , #FBE2C4); /* 标准的语法（必须放在最后） */
     }
     
 .el-button+.el-button{
