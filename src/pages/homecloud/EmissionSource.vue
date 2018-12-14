@@ -4,6 +4,7 @@
   	  	:tableitems="tableitems"
   	  	:queryapi="queryapi"
   	  	:delapi="delapi"
+  	  	:title="title"
   	  	v-on:search="onSearch"
   	  	ref='tumitable'></common-table>
   </div>
@@ -19,14 +20,16 @@
 			CommonTable
 	  },
 	  data () {
-	  	var that = this;
 	    return {
-	    	  
+	    		title:{
+	    			showable:true,
+	    			menuname:'RFID管理',
+	    			submenuname:'发射源'
+	    		},
 	    		queryapi:'/device/rfid/query',
 	    		delapi:'/device/rfid/del',
 	    		saveapi:'/device/rfid/save',
-	    		updateapi:'/device/rfid/update',
-	    		
+	    		updateapi:'/device/rfid/update',	    		
 					tableitems: [                       //表格元素，表头            
 					{
 			          hasSubs: false,
@@ -217,7 +220,7 @@
 			          ]
 			        },
 	       ],	       
-	   		scenerylistquery:[{},{}],
+	   		scenerylistquery:[],
 	    	sceneryIds:[]
 	    	
 	    }

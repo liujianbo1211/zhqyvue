@@ -2,10 +2,10 @@
   <section>
   	
   	 <!--主题-->
-   	 <el-row style="height: 20px;margin-top: 24px;font-size: 18px;color:#919191;">
-      <span style="display:inline-block;margin-left: 13px;padding-left:7px ;border-left: 4px solid #F98319;">RFID管理</span>
+   	 <el-row style="height: 20px;margin-top: 24px;font-size: 18px;color:#919191;" v-if="title.showable">
+      <span style="display:inline-block;margin-left: 13px;padding-left:7px ;border-left: 4px solid #F98319;">{{title.menuname}}</span>
       <strong style="color: #F98319;padding: 0 5px;font: 14px;">-</strong>
-      <span>发射源1</span>
+      <span>{{title.submenuname}}</span>
     </el-row>
     
     <!--查询组件-->   
@@ -142,7 +142,7 @@
 	    }
 	  },
 	  props:[
-	  	'tableitems','queryapi','delapi'
+	  	'tableitems','queryapi','delapi','updateapi','addapi','title'
 	  ],
 	  methods:{
 	  	//批量删除
@@ -210,8 +210,7 @@
 	              type: "error",
 	              duration: 1200
 	            });
-	          }
-	
+	          }	
 	          vm.delVisible = false;
 	        })
 	        .catch(function(error) {
