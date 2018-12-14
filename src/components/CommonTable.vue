@@ -23,7 +23,7 @@
     <!--表格按钮-->
     <el-row style="height: 40px;padding-left: 90px;margin: 20px 0 20px 0;">
 
-				<el-button round >新 增</el-button>
+				<el-button round @click="addFormVisible=true">新 增</el-button>
 				<el-button round @click="showDelVisible">删 除</el-button>
 				<el-button round >导 入</el-button>
 				<el-button round >导 出</el-button>
@@ -104,7 +104,9 @@
 				    </el-pagination>
     			</div>
     </el-row>
+    
     <!--各种diglog-->
+    
     <!--批量删除-->
     <!--删除提示框-->
     <el-dialog title="提示" :visible.sync="delVisible" width="30%" custom-class="deleteTip">
@@ -115,19 +117,30 @@
         <el-button type="primary" @click="deleteByIds" size="small">确 定</el-button>
       </span>
     </el-dialog>
+    
+    <Add-Form
+    		:addVisible="addFormVisible"
+    		:additems="tableitems"
+    		v-on:adddialog="closeadd"
+    		>
+    		</Add-Form>
+    
   </section>
 </template>
 
 <script>
 	import SearchTool from './SearchTool'
+	import AddForm from './AddForm'
 	import {path} from '../api/api'
 	export default {
 	  name: 'CommonTable',
 		  components: {
-	    SearchTool
+	    SearchTool,AddForm
 	  },
 	  data () {
 	    return {
+	    		addFormVisible:false,
+	    		addLoading:false,
 					loading:false,
 					tableData:[],
 					currentPage:1,
@@ -174,7 +187,6 @@
 	      var vm = this;
 	      var api = this.delapi;
 	      var delIds = this.delIds;
-	      console.log("ids:"+delIds);
 	      var dform = {};
 	      dform.ids=delIds;
 	      let token = sessionStorage.getItem("token");
@@ -231,14 +243,13 @@
 	      this.currentPage = val;
 	      this.$refs["searchTool"].query();
 	    },
+	    closeadd(val) {
+        this.addFormVisible = val;
+        this.addLoading = val;
+      },
 	  	onSearch: function (sform) {
-	  		//调用当前页面组件，修改必须参数(每个页面都需要重写这个方法，编辑自己需要的提交参数)
-	  		//将searchForm传递给父组件
-
-			this.$emit('search',sform)
-	    //在这里得到表单项,提交查询
-	    /*this.sform = sform;
-	    this.getTableData(sform);*/
+		    //在这里得到表单项,提交查询
+		    this.getTableData(sform);
      },
      alertInfo(msg) {
       this.$alert(msg, "提示", {
@@ -275,7 +286,6 @@
           if (ret.status == "200") {
           	if(ret.data.resultStatus.resultCode==='0000'){
           		vm.tableData = ret.data.value.list;
-	            console.log(vm.tableData);
 	            vm.pageTotal = ret.data.value.total;
 	            vm.loading = false;
 	            vm.$message({

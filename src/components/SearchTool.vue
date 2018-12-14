@@ -41,6 +41,9 @@
 	    	searched:false,
 			searchForm:{
 				
+			},
+			tempSearchForm:{
+				
 			}
 	    }
 	  },
@@ -71,15 +74,36 @@
 					}
 				}
 			}
+		
 			//重置汇总searchForm内数据
 			this.searchForm={}
+			for(var att in this.tempSearchForm){
+				this.searchForm[att]=this.tempSearchForm[att];
+			}
 			this.searched=false
 	  			
 	  	},
 	  	listensearchitem(formitem){
 	  		Object.assign(this.searchForm,formitem)
-	  		console.log(this.searchForm)
 	  	}
+	  },
+	  mounted(){
+	  	var items = this.searchitems;
+	  	for(var i =0;i<items.length;i++){
+	  		var item = items[i]['subs'];
+	  		for(var j = 0 ; j< item.length;j++){
+	  			if(item[j]['hiddensearch']!=undefined&&item[j]['hiddensearch']!=''){
+	  				/*this.tempSearchForm=item[j]['hiddensearch'];
+	  				this.searchForm=item[j]['hiddensearch'];*/
+	  				var obj = item[j]['hiddensearch'];
+	  				for(var att in obj){
+	  					this.tempSearchForm[att]=obj[att];
+	  					this.searchForm[att]=obj[att];
+	  				}
+	  			}
+	  		}
+	  	}
+	  
 	  }
 	}
 </script>
@@ -109,6 +133,9 @@
 	    }*/
 		.el-row .el-input{
 			width: 150px;
+		}
+		.el-input--small .el-input__inner {
+			background: #F0F1F5;
 		}
 		
 </style>

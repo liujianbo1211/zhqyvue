@@ -5,8 +5,7 @@
   	  	:queryapi="queryapi"
   	  	:delapi="delapi"
   	  	:title="title"
-  	  	:datadescription="datadescription"
-  	  	v-on:search="onSearch"
+  	  	:datadescription="datadescription"  	  	
   	  	ref='tumitable'></common-table>
   </div>
 </template>
@@ -47,9 +46,10 @@
 			              type: "commonselection",
 			              placeholder:'请选择',
 			              selectlist: this.scenerylistquery,
+			              hiddensearch:{type:0},
 			              editable: false,
 			              searchable: true,
-			              addable: true,
+			              addable: false,
 			              hidden:true,
 			              unsortable: true,
 			              align: "center"
@@ -66,7 +66,7 @@
 			              type: "number",
 			              editable: false,
 			              searchable: false,
-			              addable: true,
+			              addable: false,
 			              hidden:true,
 			              unsortable: true,
 			              align: "center"
@@ -84,7 +84,7 @@
 			              type: "str",
 			              editable: false,
 			              searchable: true,
-			              addable: false,
+			              addable: true,
 			              unsortable: true,
 			              align: "center"
 			            }
@@ -100,7 +100,7 @@
 			              type: "number",
 			              editable: false,
 			              searchable: false,
-			              addable: true,
+			              addable: false,
 			              unsortable: true,
 			              align: "center"
 			            }
@@ -115,7 +115,7 @@
 			              width: "200",
 			              editable: false,
 			              searchable: false,
-			              addable: true,
+			              addable: false,
 			              unsortable: true,
 			              align: "center"
 			            }
@@ -133,7 +133,7 @@
 			              selectlist: [{},{}],
 			              editable: false,
 			              searchable: false,
-			              addable: true,
+			              addable: false,
 			              unsortable: true,
 			              align: "center"
 			            }
@@ -149,7 +149,7 @@
 			              type: "number",
 			              editable: false,
 			              searchable: false,
-			              addable: true,
+			              addable: false,
 			              unsortable: true,
 			              align: "center",
 			              format: function (row) {
@@ -169,7 +169,7 @@
 			              editable: false,
 			              hidden:true,
 			              searchable: false,
-			              addable: true,
+			              addable: false,
 			              unsortable: true,
 			              align: "center"
 			            }
@@ -185,7 +185,7 @@
 			              editable: false,
 			              searchable: false,
 			              hidden:true,
-			              addable: true,
+			              addable: false,
 			              unsortable: true,
 			              align: "center"
 			            }
@@ -237,7 +237,7 @@
 	  methods:{
 	  	//查询刷新方法，参数改变就需要重写
 	  	onSearch(sform){
-	  		var queryForm = {}
+	  		/*var queryForm = {}
 	  		
 	  		//以下是逻辑处理(判断提交参数属性，按需求修改)
 	  		for(var att in sform){
@@ -250,7 +250,8 @@
 	  		}
 	  		
 	  		//调用组件刷新表格方法
-	  		this.$refs['tumitable'].getTableData(queryForm);
+	  		this.$refs['tumitable'].getTableData(queryForm);*/
+	  		this.$refs['tumitable'].getTableData(sform);
 	  	},
 	  	//获取景区列表下拉框
 	  	getSceneryList(){
@@ -274,8 +275,6 @@
 			    	//data.push({id: 0, name: "查询全部"})
 			    	//data.splice(0, 0, {id: 0, name: "查询全部"});
 			    	_this.scenerylistquery = data;
-
-						console.log(_this.scenerylistquery)
 						
 						//刷新表格数据
 						_this.sceneryIds=[];
@@ -283,7 +282,7 @@
 							_this.sceneryIds.push(data[i].id)							
 						}
 
-						_this.$refs['tumitable'].getTableData({sceneryIds:_this.sceneryIds})
+						_this.$refs['tumitable'].getTableData({sceneryIds:_this.sceneryIds,type:0})
 			    })
 	  	},
 	  },
