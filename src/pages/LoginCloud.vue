@@ -128,14 +128,14 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="less" scoped>
-	.w{
+<style lang="less" scoped="">
+	.login .w{
 		position: relative;
 		width: 1652px;
 		margin: 0 auto;
 		
 	}
-	.login-form{
+	.login .login-form{
 		z-index: 1000;
 		height: 668px;
 		width: 460px;
@@ -145,19 +145,19 @@ export default {
 		border: 10px solid white;
 		position: absolute;
 	}
-	.login-form-title{
+	.login .login-form-title{
 		width: 100%;
 		height: 60px;
 		margin-top: 80px;
 		position: relative;
 	}
-	.login-form-title span{
+	.login .login-form-title span{
 		display: inline-block;
 		position: absolute;
 		top: 13px;
 		left: 80px;
 	}
-	.login-form-title div{		
+	.login .login-form-title div{		
 		display: inline-block;
 		position: absolute;
 		top: 17px;
@@ -166,28 +166,28 @@ export default {
       	font-weight: 500;
      	color: #EE6225;
 	}
-	.form{
+	.login .form{
 		width: 340px;
 		height: 385px;
 		margin-top: 34px;
 		margin-left:58px
 	}
-	.el-form-item__label {
+	.login .el-form-item__label {
       font-size: 16px;
       color: #EB9862;
       font-weight: 600;
     }
-    .el-input__inner {
+    .login .el-input__inner {
       border-radius: 26px;
       height: 52px;
     }
-    .check .el-input__inner{
+    .login .check .el-input__inner{
     	width: 196px;
     }
-    .check .el-input{
+    .login .check .el-input{
     	width: 196px;
     }
-    button{
+    .login button{
       width: 100%;
       margin-top: 32px;
       font-size: 26px;

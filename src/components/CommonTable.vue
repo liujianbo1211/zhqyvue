@@ -12,6 +12,7 @@
     <Search-Tool
     			:searchitems="tableitems"
     			v-on:search="onSearch"
+    			ref="searchTool"
     			></Search-Tool>
     
     <!--工具栏-->
@@ -40,7 +41,7 @@
         border
         highlight-current-row
         style="width:95%;"
-        height="600"
+        height="586"
         v-loading="loading"
         id="tablearea"
         @selection-change="handleSelectionChange"
@@ -101,9 +102,9 @@
 				      @current-change="handleCurrentChange"
 				      :current-page="currentPage"
 				      :page-sizes="[10, 20, 30, 40]"
-				      :page-size="30"
+				      :page-size="10"
 				      layout="total, sizes, prev, pager, next, jumper"
-				      :total="35">
+				      :total="pageTotal">
 				    </el-pagination>
     			</div>
     </el-row>
@@ -124,6 +125,8 @@
 					loading:false,
 					tableData:[],
 					currentPage:1,
+					pageTotal:0,
+					pageSize:10
 	    }
 	  },
 	  props:[
@@ -133,12 +136,16 @@
 	  	handleSelectionChange(){
 	  		
 	  	},
-	  	handleSizeChange(){
-	  		
-	  	},
-	  	handleCurrentChange(){
-	  		
-	  	},
+	  	// 分页
+    	handleSizeChange(val) {
+	      this.currentPage = 1;
+	      this.pageSize = val;
+	      this.$refs["searchTool"].query();
+	    },
+	  	handleCurrentChange(val) {
+	      this.currentPage = val;
+	      this.$refs["searchTool"].query();
+	    },
 	  	onSearch: function (sform) {
 	  		//调用当前页面组件，修改必须参数(每个页面都需要重写这个方法，编辑自己需要的提交参数)
 	  		//将searchForm传递给父组件
@@ -173,7 +180,7 @@
           	if(ret.data.resultStatus.resultCode==='0000'){
           		vm.tableData = ret.data.value.list;
 	            console.log(vm.tableData);
-	            vm.total = ret.data.value.total;
+	            vm.pageTotal = ret.data.value.total;
 	            vm.loading = false;
 	            vm.$message({
 	              message: "更新成功!",

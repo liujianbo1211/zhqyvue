@@ -234,7 +234,7 @@
 	  			if(sform[att]!=undefined&&sform[att]!=''){
 	  				queryForm[att]=sform[att];
 	  				if(att==='sceneryId'){
-	  				
+	  						
 	  				}  				
 	  			}		
 	  		}
@@ -264,9 +264,7 @@
 			    	//data.push({id: 0, name: "查询全部"})
 			    	//data.splice(0, 0, {id: 0, name: "查询全部"});
 			    	_this.scenerylistquery = data;
-			    	console.log('-----------------query1')
-						console.log(data)
-						console.log('-----------------query2')
+
 						console.log(_this.scenerylistquery)
 						
 						//刷新表格数据
@@ -286,18 +284,17 @@
 	  		  	  	
 	  },
 	  watch: {
-            scenerylistquery: function (val) {
-                this.tableitems[0].subs[0].selectlist = val;                
-            }
+        scenerylistquery: function (val) {
+            this.tableitems[0].subs[0].selectlist = val;                
         }
+    }
 	}
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 
 		.el-table th div,.el-table th div, .el-table th>.cell,.el-table--border th{
 			background: #FAFAFA;
 		}
-		
-		
+				
 </style>
