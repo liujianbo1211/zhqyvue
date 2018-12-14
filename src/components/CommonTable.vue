@@ -27,7 +27,7 @@
     <el-row style="height: 40px;padding-left: 90px;margin: 20px 0 20px 0;">
 
 				<el-button round >新 增</el-button>
-				<el-button round >删 除</el-button>
+				<el-button round @click="showDelVisible">删 除</el-button>
 				<el-button round >导 入</el-button>
 				<el-button round >导 出</el-button>
 
@@ -82,8 +82,7 @@
 
         <el-table-column label="操作" :width="200"  align="center">
           <template slot-scope="scope">
-            <el-button
-              
+            <el-button           
               size="mini"
               @click="handleEdit(scope.$index, scope.row)"
             >编辑</el-button>
@@ -108,7 +107,17 @@
 				    </el-pagination>
     			</div>
     </el-row>
-    
+    <!--各种diglog-->
+    <!--批量删除-->
+    <!--删除提示框-->
+    <el-dialog title="提示" :visible.sync="delVisible" width="30%" custom-class="deleteTip">
+      <div class="el-message-box__status el-icon-warning" style="padding-bottom: 10px;"></div>
+      <div style="margin-left:50px;vertical-align:middle;">确定删除吗?此操作不可恢复!</div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="delVisible = false" size="small">取 消</el-button>
+        <el-button type="primary" @click="deleteByIds" size="small">确 定</el-button>
+      </span>
+    </el-dialog>
   </section>
 </template>
 
@@ -126,16 +135,96 @@
 					tableData:[],
 					currentPage:1,
 					pageTotal:0,
-					pageSize:10
+					pageSize:10,
+					multipleSelection:'',
+					delVisible:false,
+					delIds:'',
 	    }
 	  },
 	  props:[
-	  	'tableitems','queryapi'
+	  	'tableitems','queryapi','delapi'
 	  ],
 	  methods:{
-	  	handleSelectionChange(){
-	  		
-	  	},
+	  	//批量删除
+	  	showDelVisible() {
+	      var multipleSelection = this.multipleSelection;
+	      if (multipleSelection == undefined || multipleSelection.length == 0) {
+	        this.$message({
+	          message: "未选中数据",
+	          type: "error",
+	          duration: 1200
+	        });
+	        return;
+	      }
+	      var multipleSelection = this.multipleSelection;
+	      var delIds = [];
+	      for (var i = 0; i < multipleSelection.length; i++) {
+	        delIds.push(multipleSelection[i].id);
+	      }
+	      this.delIds=delIds;
+	      this.delVisible = true;
+	    },
+	    //单个删除
+	    openDelete(index, row) {
+	      var delIds = [];
+	      delIds.push(row.id);
+	      this.delIds= delIds;
+	      this.delVisible = true;
+	    },
+	    //请求后台删除
+	    deleteByIds(){
+	    	 //删除
+	      var vm = this;
+	      var api = this.delapi;
+	      var delIds = this.delIds;
+	      console.log("ids:"+delIds);
+	      var dform = {};
+	      dform.ids=delIds;
+	      let token = sessionStorage.getItem("token");
+	      //发送请求,删除id为row.id的数据
+	
+	      this.$axios
+	        .post(path + api, dform, {
+	          headers: {
+	            "Content-Type": "application/json; charset=UTF-8",
+	            Authorization: "Bearer " + token
+	          }
+	        })
+	        .then(function(response) {
+	          let ret = response.data;
+	
+	          //删除成功
+	          if (ret.resultStatus.resultCode == "0000") {
+	            // if (ret > 0) {
+	            //删除成功
+	            vm.$refs["searchTool"].query();
+	            vm.$message({
+	                        message: '删除成功!',
+	                        type: 'success',
+	                        duration: 600
+	                    });
+	          } else {
+	            //更新失败
+	            vm.$message({
+	              message: "删除失败",
+	              type: "error",
+	              duration: 1200
+	            });
+	          }
+	
+	          vm.delVisible = false;
+	        })
+	        .catch(function(error) {
+	          setTimeout(() => {
+	            vm.alertInfo("请求失败!" + error);
+	          }, 150);
+	        });
+	
+	      
+	    },
+	  	handleSelectionChange(val) {
+	      this.multipleSelection = val;
+	    },
 	  	// 分页
     	handleSizeChange(val) {
 	      this.currentPage = 1;
@@ -155,6 +244,17 @@
 	    /*this.sform = sform;
 	    this.getTableData(sform);*/
      },
+     alertInfo(msg) {
+      this.$alert(msg, "提示", {
+        confirmButtonText: "确定",
+        type: "warning",
+        callback: action => {
+          sessionStorage.removeItem("user");
+          sessionStorage.removeItem("token");
+          this.$router.push("/login");
+        }
+      });
+    },
      //拉取表格数据
     getTableData(sform) {
       var vm = this;

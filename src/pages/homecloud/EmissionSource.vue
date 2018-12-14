@@ -3,6 +3,7 @@
   	  <common-table
   	  	:tableitems="tableitems"
   	  	:queryapi="queryapi"
+  	  	:delapi="delapi"
   	  	v-on:search="onSearch"
   	  	ref='tumitable'></common-table>
   </div>
