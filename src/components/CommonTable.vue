@@ -8,9 +8,7 @@
       <span>发射源1</span>
     </el-row>
     
-    <!--查询组件-->
-   
-    
+    <!--查询组件-->   
     <Search-Tool
     			:searchitems="tableitems"
     			v-on:search="onSearch"
@@ -170,17 +168,19 @@
         })
         .then(function(response) {
           let ret = response;
-          
+
           if (ret.status == "200") {
-            vm.tableData = ret.data.value.list;
-            console.log(vm.tableData);
-            vm.total = ret.data.value.total;
-            vm.loading = false;
-            vm.$message({
-              message: "更新成功!",
-              type: "success",
-              duration: 900
-            });
+          	if(ret.data.resultStatus.resultCode==='0000'){
+          		vm.tableData = ret.data.value.list;
+	            console.log(vm.tableData);
+	            vm.total = ret.data.value.total;
+	            vm.loading = false;
+	            vm.$message({
+	              message: "更新成功!",
+	              type: "success",
+	              duration: 900
+	            });
+          	}           
           }
         })
         .catch(function(error) {

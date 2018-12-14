@@ -272,13 +272,9 @@
 						//刷新表格数据
 						_this.sceneryIds=[];
 						for(var i =0;i<data.length;i++){
-							alert(i)
-							_this.sceneryIds.push(data[i].id)
-							
+							_this.sceneryIds.push(data[i].id)							
 						}
-						console.log('end....')
-						console.log(_this.sceneryIds)
-						console.log('end....')
+
 						_this.$refs['tumitable'].getTableData({sceneryIds:_this.sceneryIds})
 			    })
 	  	},
@@ -287,8 +283,7 @@
 
 	  	//获取景区下拉列表  并刷新表格
 	  	this.getSceneryList();
-	  		  	
-	  	
+	  		  	  	
 	  },
 	  watch: {
             scenerylistquery: function (val) {
@@ -300,7 +295,7 @@
 
 <style lang="less" scoped>
 
-		.el-table--border th{
+		.el-table th div,.el-table th div, .el-table th>.cell,.el-table--border th{
 			background: #FAFAFA;
 		}
 		
