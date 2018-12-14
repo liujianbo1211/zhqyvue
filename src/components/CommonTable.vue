@@ -16,11 +16,8 @@
     			></Search-Tool>
     
     <!--工具栏-->
-    <el-row  style="border-bottom: 2px solid #FCD4B1;margin-top: 44px;">
-      <!--<div
-        style="width: 1512px;margin-left:34px;border-bottom: 1px solid #FED3B0;padding-bottom: 10px;padding-left: 53px;color: #FD974F;"
-      >aaa:&nbsp;aaabbb</div>-->
-      <span style="display:inline-block;margin:0 0 5px 5%;color: #FE9955;">共有位置版发射源：11个</span>
+    <el-row  style="border-bottom: 2px solid #FCD4B1;margin-top: 44px;" v-if="datadescription.showable">
+      <span style="display:inline-block;margin:0 0 5px 5%;color: #FE9955;font-size: 18px;">{{datadescription.message}}{{pageTotal}}{{datadescription.unit}}</span>
     </el-row>
     
     <!--表格按钮-->
@@ -142,7 +139,7 @@
 	    }
 	  },
 	  props:[
-	  	'tableitems','queryapi','delapi','updateapi','addapi','title'
+	  	'tableitems','queryapi','delapi','updateapi','addapi','title','datadescription'
 	  ],
 	  methods:{
 	  	//批量删除

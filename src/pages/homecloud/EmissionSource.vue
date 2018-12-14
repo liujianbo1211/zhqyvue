@@ -5,6 +5,7 @@
   	  	:queryapi="queryapi"
   	  	:delapi="delapi"
   	  	:title="title"
+  	  	:datadescription="datadescription"
   	  	v-on:search="onSearch"
   	  	ref='tumitable'></common-table>
   </div>
@@ -26,6 +27,11 @@
 	    			menuname:'RFID管理',
 	    			submenuname:'发射源'
 	    		},
+	    		datadescription:{
+	    			showable:true,
+	    			message:'共有位置版发射源: ',
+	    			unit:'个'
+	    		},
 	    		queryapi:'/device/rfid/query',
 	    		delapi:'/device/rfid/del',
 	    		saveapi:'/device/rfid/save',
@@ -41,7 +47,7 @@
 			              type: "commonselection",
 			              placeholder:'请选择',
 			              selectlist: this.scenerylistquery,
-			              editable: true,
+			              editable: false,
 			              searchable: true,
 			              addable: true,
 			              hidden:true,
@@ -58,7 +64,7 @@
 			              prop: "id",
 			              width: "100",
 			              type: "number",
-			              editable: true,
+			              editable: false,
 			              searchable: false,
 			              addable: true,
 			              hidden:true,
@@ -76,7 +82,7 @@
 			              prop: "no",
 			              width: "100",
 			              type: "str",
-			              editable: true,
+			              editable: false,
 			              searchable: true,
 			              addable: false,
 			              unsortable: true,
@@ -92,7 +98,7 @@
 			              prop: "address",
 			              width: "200",
 			              type: "number",
-			              editable: true,
+			              editable: false,
 			              searchable: false,
 			              addable: true,
 			              unsortable: true,
@@ -107,7 +113,7 @@
 			              label: "景区服务商",
 			              prop: "sceneryName",
 			              width: "200",
-			              editable: true,
+			              editable: false,
 			              searchable: false,
 			              addable: true,
 			              unsortable: true,
@@ -125,7 +131,7 @@
 			              width: "200",
 			               type: "selection",
 			              selectlist: [{},{}],
-			              editable: true,
+			              editable: false,
 			              searchable: false,
 			              addable: true,
 			              unsortable: true,
@@ -141,7 +147,7 @@
 			              prop: "coodrinte",
 			              width: "200",
 			              type: "number",
-			              editable: true,
+			              editable: false,
 			              searchable: false,
 			              addable: true,
 			              unsortable: true,
@@ -160,7 +166,7 @@
 			              prop: "sceneryId",
 			              width: "200",
 			              type: "number",
-			              editable: true,
+			              editable: false,
 			              hidden:true,
 			              searchable: false,
 			              addable: true,
@@ -176,7 +182,7 @@
 			              prop: "scenerySpotId",
 			              width: "200",
 			              type: "number",
-			              editable: true,
+			              editable: false,
 			              searchable: false,
 			              hidden:true,
 			              addable: true,
