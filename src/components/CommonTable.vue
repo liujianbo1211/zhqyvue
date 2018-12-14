@@ -5,7 +5,7 @@
    	 <el-row style="height: 20px;margin-top: 24px;font-size: 18px;color:#919191;">
       <span style="display:inline-block;margin-left: 13px;padding-left:7px ;border-left: 4px solid #F98319;">RFID管理</span>
       <strong style="color: #F98319;padding: 0 5px;font: 14px;">-</strong>
-      <span>发射源</span>
+      <span>发射源1</span>
     </el-row>
     
     <!--查询组件-->
@@ -13,10 +13,11 @@
     
     <Search-Tool
     			:searchitems="tableitems"
+    			v-on:search="onSearch"
     			></Search-Tool>
     
     <!--工具栏-->
-    <el-row  style="border-bottom: 2px solid #FCD4B1;margin-top: 20px;">
+    <el-row  style="border-bottom: 2px solid #FCD4B1;margin-top: 44px;">
       <!--<div
         style="width: 1512px;margin-left:34px;border-bottom: 1px solid #FED3B0;padding-bottom: 10px;padding-left: 53px;color: #FD974F;"
       >aaa:&nbsp;aaabbb</div>-->
@@ -41,7 +42,7 @@
         border
         highlight-current-row
         style="width:95%;"
-        :height="500"
+        height="600"
         v-loading="loading"
         id="tablearea"
         @selection-change="handleSelectionChange"
@@ -91,17 +92,7 @@
           </template>
         </el-table-column>
       </el-table>
-      <!--<div class="block" style="float: right;">
-        <el-pagination
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page="currentPage"
-          :page-sizes="[10, 20, 30, 40]"
-          :page-size="pageSize"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="total"
-        ></el-pagination>
-      </div>-->
+
     </el-row>
     
     <!--分页条-->
@@ -124,6 +115,7 @@
 
 <script>
 	import SearchTool from './SearchTool'
+	import {path} from '../api/api'
 	export default {
 	  name: 'CommonTable',
 		  components: {
@@ -132,12 +124,12 @@
 	  data () {
 	    return {
 					loading:false,
-					tableData:[{}],
+					tableData:[],
 					currentPage:1,
 	    }
 	  },
 	  props:[
-	  	'tableitems',
+	  	'tableitems','queryapi'
 	  ],
 	  methods:{
 	  	handleSelectionChange(){
@@ -149,11 +141,60 @@
 	  	handleCurrentChange(){
 	  		
 	  	},
+	  	onSearch: function (sform) {
+	  		//调用当前页面组件，修改必须参数(每个页面都需要重写这个方法，编辑自己需要的提交参数)
+	  		//将searchForm传递给父组件
+
+			this.$emit('search',sform)
+	    //在这里得到表单项,提交查询
+	    /*this.sform = sform;
+	    this.getTableData(sform);*/
+     },
+     //拉取表格数据
+    getTableData(sform) {
+      var vm = this;
+      this.loading = true;
+
+      var api = this.queryapi;
+
+      sform.pageSize = this.pageSize;
+      sform.pageNum = this.currentPage;
+
+      let token = sessionStorage.getItem("token");
+      this.$axios
+        .post(path + api, sform, {
+          headers: {
+            "Content-Type": "application/json; charset=UTF-8",
+            Authorization: "Bearer " + token
+          }
+        })
+        .then(function(response) {
+          let ret = response;
+          
+          if (ret.status == "200") {
+            vm.tableData = ret.data.value.list;
+            console.log(vm.tableData);
+            vm.total = ret.data.value.total;
+            vm.loading = false;
+            vm.$message({
+              message: "更新成功!",
+              type: "success",
+              duration: 900
+            });
+          }
+        })
+        .catch(function(error) {
+          setTimeout(() => {
+            alert("请求失败");
+          }, 150);
+        });
+    },
 	  }
 	}
 </script>
 
-
-<style lang="less">
-
+<style lang="less" scoped>
+		.el-table th>.cell{
+				background: red !important;
+		}
 </style>

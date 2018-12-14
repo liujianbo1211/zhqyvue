@@ -43,7 +43,8 @@
                 </el-button>
                 <el-menu
                 	unique-opened
-                	 router  style="width: 100%;" class="el-menu-vertical-demo"  :collapse="isCollapse">
+                	@select="handleselect"
+                	  style="width: 100%;" class="el-menu-vertical-demo"  :collapse="isCollapse">
 									  <el-submenu index="1">
 								    <template slot="title" index="/data">
 								      <i class="icon iconfont icon-shouye"></i>
@@ -178,6 +179,9 @@ export default {
     handleclose() {
         //console.log('handleclose');
     },
+    handleselect(a,b){
+    	this.$router.push(a);
+    }
   }
 }
 </script>

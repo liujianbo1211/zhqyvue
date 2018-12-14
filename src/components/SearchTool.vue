@@ -1,19 +1,24 @@
 <template>
-   <el-row style="height: 30px;background: #eee;margin-top: 22px;padding-left:5% ;font:'microsoft yahei' 18px/32px ;">
+   <el-row style="margin-top: 36px;padding-left:5% ;font:'microsoft yahei' 18px/32px ;">
   
     		<!--<SearchText></SearchText>-->
     		<span v-for="items in searchitems">
 	    			<p
 	    				v-for="item in items.subs"
+	    				v-if="item.searchable"
 		    			:is="item.type"
-							:id="item.type"
-							:ref="adfa"
+						:id="item.prop"
+						:title="item.label"
+						:placeholder="item.placeholder" 
+						:selectlist="item.selectlist"
+						v-on:fromsearchitem="listensearchitem"
+						:ref="item.prop"
 		    			></p>
     		</span>
     		
-    		<div style="display: inline;margin-left: 70px;margin-top: -100px;">
+    		<div style="display: inline;margin-top: -100px;">
  				 <el-button size="small" style="background: #FA841A;color: white; " @click="query">查询</el-button>
- 				  <el-button size="small" @click="resetForm">重置</el-button>
+ 				  <el-button size="small" @click="resetSearch">重置</el-button>
  				  <el-button size="small" @click="query">刷新</el-button>
  				</div>
    </el-row>
@@ -21,22 +26,62 @@
 
 <script>
 	import SearchText from './search-subs/SearchText'
-export default {
-  name: 'SearchTool',
-  components:{
-		str:SearchText
-		//SearchText
-	},
-  data () {
-    return {
-				text:"str",
-				adfa:'adfa'
-    }
-  },
-  props:[
-  	'searchitems'
-  ]
-}
+	import SearchDate from './search-subs/SearchDate'
+	import SearchCommonSelect from './search-subs/SearchCommonSelect'
+	import common from '../common/js/common.js'
+	export default {
+	  name: 'SearchTool',
+	  components:{
+			str:SearchText,
+			date:SearchDate,
+			commonselection:SearchCommonSelect
+		},
+	  data () {
+	    return {
+	    	searched:false,
+			searchForm:{
+				
+			}
+	    }
+	  },
+	  props:[
+	  	'searchitems'
+	  ],
+	  methods:{
+	  	query(){
+	  		
+	  		if(common.getLength(this.searchForm)>0){
+				this.searched = true
+			}
+			//将searchForm传递给父组件
+			this.$emit('search',this.searchForm)
+
+	  		
+	  	},
+	  	resetSearch(){
+	  		
+			//重置search
+			//清空所有子组件的searchForm
+			//循环调用，清除所以子组件内的表单值
+			for(var i=0;i<this.searchitems.length;i++){
+				for(var x in this.searchitems[i].subs){
+					var t=this.searchitems[i].subs[x].prop;
+					if(typeof(this.$refs[t])!='undefined'){
+						this.$refs[t][0].cleanf()
+					}
+				}
+			}
+			//重置汇总searchForm内数据
+			this.searchForm={}
+			this.searched=false
+	  			
+	  	},
+	  	listensearchitem(formitem){
+	  		Object.assign(this.searchForm,formitem)
+	  		console.log(this.searchForm)
+	  	}
+	  }
+	}
 </script>
 
 
@@ -65,7 +110,5 @@ export default {
 		.el-row .el-input{
 			width: 150px;
 		}
-		.el-button--small, .el-button--small.is-round{
-			margin-top: 15px;
-		}
+		
 </style>
