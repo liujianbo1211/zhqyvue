@@ -306,8 +306,6 @@
 	}
 </script>
 
-<style lang="less" scoped>
-		.el-table th>.cell{
-				background: red !important;
-		}
+<style lang="less" >
+		
 </style>

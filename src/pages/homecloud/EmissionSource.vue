@@ -49,7 +49,7 @@
 			              hiddensearch:{type:0},
 			              editable: false,
 			              searchable: true,
-			              addable: false,
+			              addable: true,
 			              hidden:true,
 			              unsortable: true,
 			              align: "center"

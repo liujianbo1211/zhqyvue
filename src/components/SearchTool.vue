@@ -1,5 +1,5 @@
 <template>
-   <el-row style="margin-top: 36px;padding-left:5% ;font:'microsoft yahei' 18px/32px ;">
+   <el-row style="margin-top: 36px;padding-left:5% ;font:'microsoft yahei' 18px/32px ;" class="tool">
   
     		<!--<SearchText></SearchText>-->
     		<span v-for="items in searchitems">
@@ -109,33 +109,29 @@
 </script>
 
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="less">
+<style lang="less"  >
 	
-	.el-date-editor .el-range__icon{
+	.tool .el-date-editor .el-range__icon{
 		color:#ff6600 ;
 	}
-		.check-left{
-			margin-right: 18px;
-		}
-		
-		
-		.el-input__icon {
-	      color: #ff6600;
-	    }
-	    
-	    .el-input__icon {
-	      color: #ff6600;
-	    }
-	  
-	    /*section .el-input__inner{
-	    	width: 150px;
-	    }*/
-		.el-row .el-input{
-			width: 150px;
-		}
-		.el-input--small .el-input__inner {
-			background: #F0F1F5;
-		}
+	.tool .check-left{
+		margin-right: 18px;
+	}
+	
+	
+	.tool .el-input__icon {
+      color: #ff6600;
+    }
+    
+    .tool .el-input__icon {
+      color: #ff6600;
+    }
+  
+	.tool .el-input{
+		width: 150px;
+	}
+	.tool .el-input--small .el-input__inner {
+		background: #F0F1F5;
+	}
 		
 </style>
