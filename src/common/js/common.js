@@ -54,4 +54,22 @@ export default {
         var second = nTime.getSeconds();
         return nTime.getFullYear() + "-" + (month < 10 ? ("0" + month) : month) + "-" + (day < 10 ? ("0" + day) : day) + " " + (hour < 10 ? ("0" + hour) : hour) + ":" + (minute < 10 ? ("0" + minute) : minute) + ":" + (second < 10 ? ("0" + second) : second)
    },
+   commonPost:function(url,sform,token,fn){
+   	
+   	 return axios.post(url,sform,{
+            headers: {
+                'Content-Type': 'application/json; charset=UTF-8',
+                'Authorization': "Bearer " + token
+            }
+        }).then(function (response) {
+			console.log('====================================================================')
+			console.log(response.data)
+			fn(response.data)
+		
+        }).catch(function (error) {
+        	console.log("请求出错")
+           return {};
+        })
+   	   	
+   },
 }

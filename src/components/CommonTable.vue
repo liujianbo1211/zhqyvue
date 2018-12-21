@@ -38,7 +38,7 @@
         border
         highlight-current-row
         style="width:95%;"
-        height="586"
+        height="569"
         v-loading="loading"
         id="tablearea"
         @selection-change="handleSelectionChange"
@@ -121,7 +121,11 @@
     <Add-Form
     		:addVisible="addFormVisible"
     		:additems="tableitems"
+    		:addFormRules="typeof(addFormRules)=='undefined'?editFormRules:addFormRules"
     		v-on:adddialog="closeadd"
+    		v-on:addselectionchange1="addselectionchange1"
+    		v-on:add="onAdd"
+    		ref="addref"
     		>
     		</Add-Form>
     
@@ -152,7 +156,7 @@
 	    }
 	  },
 	  props:[
-	  	'tableitems','queryapi','delapi','updateapi','addapi','title','datadescription'
+	  	'tableitems','queryapi','delapi','updateapi','addapi','title','datadescription','editFormRules','addFormRules'
 	  ],
 	  methods:{
 	  	//批量删除
@@ -244,6 +248,7 @@
 	      this.$refs["searchTool"].query();
 	    },
 	    closeadd(val) {
+	    	this.addFormVisible = val;
         this.addLoading = val;
       },
 	  	onSearch: function (sform) {
@@ -300,7 +305,50 @@
             alert("请求失败");
           }, 150);
         });
-    },
+	    },
+	    addselectionchange1:function(sform){
+	    	this.$emit('addselectionchange2',sform);
+	    },
+	    onAdd:function(aform){	  
+	    	let vm = this;
+	    	 this.$refs.addref.$refs.addForm.validate((valid) => {
+	    	 		if(valid){    	 			               
+								
+								vm.addloading = true;
+                let api = vm.addapi;
+								var token = sessionStorage.getItem("token");
+								
+								vm.$axios.post(path + api, aform, {
+						          headers: {
+						            "Content-Type": "application/json; charset=UTF-8",
+						            Authorization: "Bearer " + token
+						          }
+						        })
+						        .then(function(response) {
+						          let ret = response;
+											if (ret.status == "200") {
+							          	if(ret.data.resultStatus.resultCode==='0000'){
+
+								            vm.$message({
+								              message: "添加成功!",
+								              type: "success",
+								              duration: 900
+								            });
+								            vm.addFormVisible=false;
+								            vm.$refs["searchTool"].query();
+							          	}           
+							          }
+						          
+						        })
+						        .catch(function(error) {
+						          setTimeout(() => {
+						            alert("请求失败");
+						          }, 150);
+						        });
+						              
+	    	 		}
+	    	 });
+	    }
 	  }
 	}
 </script>

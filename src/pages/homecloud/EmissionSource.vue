@@ -4,8 +4,11 @@
   	  	:tableitems="tableitems"
   	  	:queryapi="queryapi"
   	  	:delapi="delapi"
+  	  	:addapi="saveapi"
   	  	:title="title"
-  	  	:datadescription="datadescription"  	  	
+  	  	:datadescription="datadescription"
+  	  	:editFormRules="editFormRules"
+  	  	v-on:addselectionchange2="addselectionchange2"
   	  	ref='tumitable'></common-table>
   </div>
 </template>
@@ -36,21 +39,40 @@
 	    		saveapi:'/device/rfid/save',
 	    		updateapi:'/device/rfid/update',	    		
 					tableitems: [                       //表格元素，表头            
-					{
+						{
+		          hasSubs: false,
+		          subs: [
+		            {
+		              label: "景区服务商",
+		              prop: "sceneryId",
+		              width: "200",
+		              type: "commonselection",
+		              placeholder:'请选择',
+		              selectlist: this.scenerylistquery,
+		              hiddensearch:{type:0},
+		              hiddenadd:{type:0},
+		              editable: false,
+		              searchable: true,
+		              addable: true,
+		              hidden:true,
+		              unsortable: true,
+		              align: "center"
+		            }
+		          ]
+		        },
+		        {
 			          hasSubs: false,
 			          subs: [
 			            {
-			              label: "景区服务商",
-			              prop: "sceneryId",
+			              label: "景点名称",
+			              prop: "scenerySpotId",
 			              width: "200",
-			              type: "commonselection",
-			              placeholder:'请选择',
 			              selectlist: this.scenerylistquery,
-			              hiddensearch:{type:0},
+			              type: "commonselection",
 			              editable: false,
-			              searchable: true,
-			              addable: true,
 			              hidden:true,
+			              searchable: false,
+			              addable: true,
 			              unsortable: true,
 			              align: "center"
 			            }
@@ -90,6 +112,40 @@
 			            }
 			          ]
 			        },
+			        {
+			          hasSubs: false,
+			          subs: [
+			            {
+			              label: "经度",
+			              
+			              prop: "lon",
+			              width: "100",
+			              type: "str",
+			              editable: false,
+			              searchable: false,
+			              addable: true,
+			              unsortable: true,
+			              align: "center"
+			            }
+			          ]
+			        },
+			        {
+			          hasSubs: false,
+			          subs: [
+			            {
+			              label: "纬度",
+			              
+			              prop: "lat",
+			              width: "100",
+			              type: "str",
+			              editable: false,
+			              searchable: false,
+			              addable: true,
+			              unsortable: true,
+			              align: "center"
+			            }
+			          ]
+			        },
 			         {
 			          hasSubs: false,
 			          subs: [
@@ -97,10 +153,10 @@
 			              label: "地址",
 			              prop: "address",
 			              width: "200",
-			              type: "number",
+			              type: "str",
 			              editable: false,
 			              searchable: false,
-			              addable: false,
+			              addable: true,
 			              unsortable: true,
 			              align: "center"
 			            }
@@ -129,7 +185,7 @@
 			              label: "旅游景点",
 			              prop: "scenerySpotName",
 			              width: "200",
-			               type: "selection",
+			              type: "selection",
 			              selectlist: [{},{}],
 			              editable: false,
 			              searchable: false,
@@ -159,22 +215,6 @@
 			          ]
 			        },
 			        {
-			          hasSubs: false,
-			          subs: [
-			            {
-			              label: "景区id",
-			              prop: "sceneryId",
-			              width: "200",
-			              type: "number",
-			              editable: false,
-			              hidden:true,
-			              searchable: false,
-			              addable: false,
-			              unsortable: true,
-			              align: "center"
-			            }
-			          ]
-			        },{
 			          hasSubs: false,
 			          subs: [
 			            {
@@ -227,7 +267,28 @@
 			        },
 	       ],	       
 	   		scenerylistquery:[],
-	    	sceneryIds:[]
+	    	sceneryIds:[],
+	    	editFormRules:{
+	    		no: [
+            { required: true, message: '请输入发射源编号', trigger: 'blur' }
+          ],
+          address: [
+            { required: true, message: '请输入地址', trigger: 'blur' }
+          ],
+          sceneryId: [
+            { required: true, message: '请选择景区', trigger: 'change' }
+          ],
+          scenerySpotId: [
+            { required: true, message: '请选择景点', trigger: 'change' }
+          ],
+          lon: [
+            { required: true, message: '请输入经度', trigger: 'blur' }
+          ],
+          lat: [
+            { required: true, message: '请输入纬度', trigger: 'blur' }
+          ]
+	    	},
+	    	
 	    	
 	    }
 	  },
@@ -285,6 +346,29 @@
 						_this.$refs['tumitable'].getTableData({sceneryIds:_this.sceneryIds,type:0})
 			    })
 	  	},
+	  	addselectionchange2:function(sform){
+	  		
+	  		console.log('子组件返回信息');
+				console.log(sform.sceneryId)
+				var sceneryId = sform.sceneryId;
+				if(sceneryId != undefined && sceneryId != ''){
+					this.getScenerySelectionById(sceneryId);
+					this.tableitems[1].subs[0].selectlist = this.scenerylistquery; 
+				}
+	  		
+	  	},
+	  	getScenerySelectionById(id){
+	  			var api = "/scenery/webdata/getsceneryspotbysceneryid";
+					let token = sessionStorage.getItem("token");
+					let sform = {
+						sceneryId:id
+					}
+					var vm = this;
+					this.$refs['tumitable'].$refs['addref'].$refs['scenerySpotId'][0].cleanSelectForm();
+					common.commonPost(path+api,sform,token,function(data){
+		    	 		vm.tableitems[1].subs[0].selectlist=data.value
+		    	});
+	  	}
 	  },
 	  mounted(){
 
