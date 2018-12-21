@@ -244,7 +244,6 @@
 	      this.$refs["searchTool"].query();
 	    },
 	    closeadd(val) {
-        this.addFormVisible = val;
         this.addLoading = val;
       },
 	  	onSearch: function (sform) {

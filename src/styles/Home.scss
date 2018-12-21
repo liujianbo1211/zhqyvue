@@ -17,11 +17,18 @@
     height: 60px;
 }
 .yellow-line{
-    height: 38px;
-    background: -webkit-linear-gradient(#FBE2C4, #F7F7F7); /* Safari 5.1 - 6.0 */
-    background: -o-linear-gradient(#FBE2C4, #F7F7F7); /* Opera 11.1 - 12.0 */
-    background: -moz-linear-gradient(#FBE2C4,#F7F7F7); /* Firefox 3.6 - 15 */
-    background: linear-gradient(#FBE2C4, #F7F7F7); /* 标准的语法（必须放在最后） */
+    height: 8px;
+    background: -webkit-linear-gradient(#FBE2C4, #FAF2E7); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#FBE2C4, #FAF2E7); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#FBE2C4,#FAF2E7); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#FBE2C4, #FAF2E7); /* 标准的语法（必须放在最后） */
+}
+.yellow-line-2{
+     height: 30px;
+     background: -webkit-linear-gradient(#EEEEEE, #FFFFFF); /* Safari 5.1 - 6.0 */
+     background: -o-linear-gradient(#EEEEEE, #FFFFFF); /* Opera 11.1 - 12.0 */
+     background: -moz-linear-gradient(#EEEEEE,#FFFFFF); /* Firefox 3.6 - 15 */
+     background: linear-gradient(#EEEEEE, #FFFFFF); /* 标准的语法（必须放在最后） */
 }
 
 .main {
@@ -74,28 +81,41 @@
 }
 .menu-line{
 
-      flex: 0 0 38px;
-      width: 38px;
+      flex: 0 0 8px;
+      width: 8px;
       height: 10000px;
-      margin-top: -20px;
+      margin-top: -38px;
       z-index: 1000;
-      background: -webkit-linear-gradient(left, #FBE2C4, #F7F7F7); /* Safari 5.1 - 6.0 */
-      background: -o-linear-gradient(right, #FBE2C4, #F7F7F7); /* Opera 11.1 - 12.0 */
-      background: -moz-linear-gradient(right, #FBE2C4, #F7F7F7); /* Firefox 3.6 - 15 */
-      background: linear-gradient(to right, #FBE2C4, #F7F7F7); /* 标准的语法（必须放在最后） */
-    }
+      background: -webkit-linear-gradient(left, #FBE2C4, #FAF2E7); /* Safari 5.1 - 6.0 */
+      background: -o-linear-gradient(right, #FBE2C4, #FAF2E7); /* Opera 11.1 - 12.0 */
+      background: -moz-linear-gradient(right, #FBE2C4, #FAF2E7); /* Firefox 3.6 - 15 */
+      background: linear-gradient(to right, #FBE2C4, #FAF2E7); /* 标准的语法（必须放在最后） */
+   }
+  .menu-line-2{
+      flex: 0 0 30px;
+      width: 30px;
+      height: 10000px;
+      margin-top: -23px;
+      z-index: 1000;
+      background: -webkit-linear-gradient(left, #EEEEEE, #FFFFFF); /* Safari 5.1 - 6.0 */
+      background: -o-linear-gradient(right, #EEEEEE, #FFFFFF); /* Opera 11.1 - 12.0 */
+      background: -moz-linear-gradient(right, #EEEEEE, #FFFFFF); /* Firefox 3.6 - 15 */
+      background: linear-gradient(to right, #EEEEEE, #FFFFFF); /* 标准的语法（必须放在最后） */
+  } 
  .menu-line-right{
 
-      flex: 0 0 38px;
-      width: 38px;
+      flex: 0 0 30px;
+      width: 30px;
       height: 10000px;
       margin-top: -20px;
       z-index: 1000;
-      background: -webkit-linear-gradient(left, #F7F7F7 , #FBE2C4); /* Safari 5.1 - 6.0 */
-      background: -o-linear-gradient(right, #F7F7F7 , #FBE2C4); /* Opera 11.1 - 12.0 */
-      background: -moz-linear-gradient(right, #F7F7F7 , #FBE2C4); /* Firefox 3.6 - 15 */
-      background: linear-gradient(to right, #F7F7F7 , #FBE2C4); /* 标准的语法（必须放在最后） */
+      background: -webkit-linear-gradient(left, #FFFFFF , #EEEEEE); /* Safari 5.1 - 6.0 */
+      background: -o-linear-gradient(right, #FFFFFF , #EEEEEE); /* Opera 11.1 - 12.0 */
+      background: -moz-linear-gradient(right, #FFFFFF , #EEEEEE); /* Firefox 3.6 - 15 */
+      background: linear-gradient(to right, #FFFFFF , #EEEEEE); /* 标准的语法（必须放在最后） */
     }
+
+
     
 .el-button+.el-button{
     margin-left: 0;

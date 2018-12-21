@@ -28,7 +28,8 @@
   	<!--黄色分隔横线-->
   	<el-col :span="24" class='yellow-line'>  		
   	</el-col>
-  
+  	<el-col :span="24" class='yellow-line-2'>  		
+  	</el-col>
   	<!--下半部分-->
   	
         <el-col :span="24" class="main">
@@ -141,6 +142,7 @@
 
             </aside>
             <div class="menu-line"></div>
+            <div class="menu-line-2"></div>
             <!--<section class="content-container">
                 <div class="grid-content bg-purple-light">
                     <el-col :span="24" class="content-wrapper">
@@ -155,6 +157,10 @@
             		<router-view></router-view>
             </div>
             <div class="menu-line-right"></div>
+            <div class="menu-line-right-2"></div>
+            <div class="last">
+            	
+            </div>
         </el-col>
   </el-row>
 </template>
