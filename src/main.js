@@ -10,6 +10,11 @@ import axios from 'axios';
 
 Vue.use(ElementUI);
 
+/*import BaiduMap from 'vue-baidu-map';
+Vue.use(BaiduMap,{
+  ak:'Ona5elzlpSrwOeeAI1k0EE2yHtpLoxlN'
+});*/
+
 Vue.config.productionTip = false
 Vue.prototype.$axios=axios;
 

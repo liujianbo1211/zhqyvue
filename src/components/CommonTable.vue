@@ -128,6 +128,17 @@
     		ref="addref"
     		>
     		</Add-Form>
+    		
+    		<!--编辑-->
+    		<edit-form
+                :editVisible="editFormVisible"
+                :editloading="editloading"
+                :editFormRules="editFormRules"
+                :rowdata="rowdata"
+								:additems="tableitems"
+								v-on:editdialog="closeedit"
+                ref="editref">
+        		</edit-form>
     
   </section>
 </template>
@@ -135,14 +146,18 @@
 <script>
 	import SearchTool from './SearchTool'
 	import AddForm from './AddForm'
+	import EditForm from './EditForm'
 	import {path} from '../api/api'
 	export default {
 	  name: 'CommonTable',
 		  components: {
-	    SearchTool,AddForm
+	    SearchTool,AddForm,EditForm
 	  },
 	  data () {
 	    return {
+	    		rowdata:{},
+	    		editloading:false,
+	    		editFormVisible:false,
 	    		addFormVisible:false,
 	    		addLoading:false,
 					loading:false,
@@ -159,6 +174,10 @@
 	  	'tableitems','queryapi','delapi','updateapi','addapi','title','datadescription','editFormRules','addFormRules'
 	  ],
 	  methods:{
+	  	//编辑
+	  	handleEdit(){
+	  		this.editFormVisible=true;
+	  	},
 	  	//批量删除
 	  	showDelVisible() {
 	      var multipleSelection = this.multipleSelection;
@@ -265,6 +284,10 @@
           this.$router.push("/login");
         }
       });
+    },
+    closeedit: function (val) {
+        this.editFormVisible = val;
+        this.editloading = val;
     },
      //拉取表格数据
     getTableData(sform) {
