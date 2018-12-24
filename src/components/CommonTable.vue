@@ -135,7 +135,7 @@
                 :editloading="editloading"
                 :editFormRules="editFormRules"
                 :rowdata="rowdata"
-								:additems="tableitems"
+								:edititems="tableitems"
 								v-on:editdialog="closeedit"
                 ref="editref">
         		</edit-form>
@@ -175,9 +175,14 @@
 	  ],
 	  methods:{
 	  	//编辑
-	  	handleEdit(){
-	  		this.editFormVisible=true;
-	  	},
+			handleEdit(index, row) {
+			    //拿到当前行数据row,传递给表单编辑子组件,子组建中包括重置和保存按钮
+			    this.rowdata = row;
+			    //获取角色编号,获取rowid,
+			    console.log('rowdata:==============')
+			    console.log(row)
+			    this.editFormVisible = true;
+			},
 	  	//批量删除
 	  	showDelVisible() {
 	      var multipleSelection = this.multipleSelection;
