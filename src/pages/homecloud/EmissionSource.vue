@@ -6,9 +6,11 @@
   	  	:delapi="delapi"
   	  	:addapi="saveapi"
   	  	:title="title"
+  	  	:updateapi="updateapi"
   	  	:datadescription="datadescription"
   	  	:editFormRules="editFormRules"
   	  	v-on:addselectionchange2="addselectionchange2"
+  	  	v-on:editselectionchange="editselectionchange"	
   	  	ref='tumitable'></common-table>
   </div>
 </template>
@@ -51,6 +53,7 @@
 		              selectlist: this.scenerylistquery,
 		              hiddensearch:{type:0},
 		              hiddenadd:{type:0},
+		              hiddenedit:{type:0},
 		              editable: true,
 		              searchable: true,
 		              addable: true,
@@ -133,8 +136,7 @@
 			          hasSubs: false,
 			          subs: [
 			            {
-			              label: "纬度",
-			              
+			              label: "纬度",			              
 			              prop: "lat",
 			              width: "100",
 			              type: "str",
@@ -296,22 +298,41 @@
 	  	
 	  },
 	  methods:{
+	  	editselectionchange(eform){
+	  			var sceneryId = eform.sceneryId;
+	  			if(sceneryId==undefined||sceneryId==''){
+	  				return;
+	  			}
+	  			//通过检测景区id的修改查询景点id
+					var api = "/scenery/webdata/getsceneryspotbysceneryid";
+					let token = sessionStorage.getItem("token");
+					let sform = {
+						'sceneryId':sceneryId
+					}
+					var vm = this;
+					
+					this.$axios.post(path+api, sform, {
+			        headers: {
+			            'Authorization':"Bearer " + token
+			        }
+			   }).then(function (response) {
+						 var scenerySpostList = response.data.value;
+						 var tempList=[];
+						 for(var att in scenerySpostList){
+						 		tempList.push({'id':scenerySpostList[att].id+"","name":scenerySpostList[att].name})
+						 }
+						 vm.tableitems[1].subs[0].selectlist = tempList;
+
+						 if(sceneryId != eform.rowdata.sceneryId){
+							 	vm.$refs['tumitable'].$refs['editref'].$refs['scenerySpotId'][0].cleanSelectForm({});
+						 }else{
+						 	  vm.$refs['tumitable'].$refs['editref'].$refs['scenerySpotId'][0].cleanSelectForm({'sceneryId':sceneryId});
+						 }
+			    })
+
+	  	},
 	  	//查询刷新方法，参数改变就需要重写
 	  	onSearch(sform){
-	  		/*var queryForm = {}
-	  		
-	  		//以下是逻辑处理(判断提交参数属性，按需求修改)
-	  		for(var att in sform){
-	  			if(sform[att]!=undefined&&sform[att]!=''){
-	  				queryForm[att]=sform[att];
-	  				if(att==='sceneryId'){
-	  						
-	  				}  				
-	  			}		
-	  		}
-	  		
-	  		//调用组件刷新表格方法
-	  		this.$refs['tumitable'].getTableData(queryForm);*/
 	  		this.$refs['tumitable'].getTableData(sform);
 	  	},
 	  	//获取景区列表下拉框
@@ -371,10 +392,8 @@
 	  	}
 	  },
 	  mounted(){
-
 	  	//获取景区下拉列表  并刷新表格
-	  	this.getSceneryList();
-	  		  	  	
+	  	this.getSceneryList();  		  	  	
 	  },
 	  watch: {
         scenerylistquery: function (val) {

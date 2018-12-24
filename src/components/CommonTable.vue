@@ -136,7 +136,9 @@
                 :editFormRules="editFormRules"
                 :rowdata="rowdata"
 								:edititems="tableitems"
+								v-on:edit="editSubmit"
 								v-on:editdialog="closeedit"
+								v-on:editselectionchange="editselectionchange"						
                 ref="editref">
         		</edit-form>
     
@@ -174,6 +176,56 @@
 	  	'tableitems','queryapi','delapi','updateapi','addapi','title','datadescription','editFormRules','addFormRules'
 	  ],
 	  methods:{
+	  	editSubmit(eform){
+	  		var vm = this;
+	      var api = this.updateapi;
+				eform.id=this.rowdata.id;
+				console.log('eidtsubmit')
+				console.log(eform)
+	      let token = sessionStorage.getItem("token");
+	      //发送请求,删除id为row.id的数据
+	
+	      this.$axios
+	        .post(path + api, eform, {
+	          headers: {
+	            "Content-Type": "application/json; charset=UTF-8",
+	            Authorization: "Bearer " + token
+	          }
+	        })
+	        .then(function(response) {
+	          let ret = response.data;
+	
+	          //删除成功
+	          if (ret.resultStatus.resultCode == "0000") {
+	            // if (ret > 0) {
+	            //删除成功
+	            vm.$refs["searchTool"].query();
+	            vm.$message({
+	                        message: '修改成功!',
+	                        type: 'success',
+	                        duration: 600
+	                    });
+	          } else {
+	            //更新失败
+	            vm.$message({
+	              message: "修改失败",
+	              type: "error",
+	              duration: 1200
+	            });
+	          }	
+	          vm.editFormVisible = false;
+	        })
+	        .catch(function(error) {
+	          setTimeout(() => {
+	            vm.alertInfo("请求失败!" + error);
+	          }, 150);
+	        });
+	
+	  	},
+	  	//自定义编辑下拉框监听
+	  	editselectionchange(eform){
+	  		this.$emit('editselectionchange',eform)
+	  	},
 	  	//编辑
 			handleEdit(index, row) {
 			    //拿到当前行数据row,传递给表单编辑子组件,子组建中包括重置和保存按钮
@@ -291,6 +343,7 @@
       });
     },
     closeedit: function (val) {
+    		this.rowdata={}
         this.editFormVisible = val;
         this.editloading = val;
     },
